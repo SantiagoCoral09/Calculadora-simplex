@@ -1,3 +1,10 @@
+function fraccion() {
+    let numero = 1 / 3;
+    let frac = math.fraction(numero);
+    document.getElementById('f').innerHTML = `${numero} = ${frac.n}/${frac.d}`;
+    console.log(frac);
+}
+
 // Funcion para pedir los datos de variables y restricciones
 function pedirDatos() {
     const numVariables = parseInt(document.getElementById('numVariables').value);
@@ -75,7 +82,7 @@ function pedirDatos() {
         // operadorSelect.className="input_small";
 
         // restricDiv.appendChild(operadorSelect);
-        restricDiv.innerHTML+='&nbsp; <= &nbsp;';
+        restricDiv.innerHTML += '&nbsp; <= &nbsp;';
 
 
         // Valor de la restricción
@@ -259,7 +266,7 @@ function maximizarSimplex(tablaSimplex, operacion) {
         }
 
         console.log("Variables Básicas:", variablesBasicas);
-        let colPivote=0;
+        let colPivote = 0;
         if (operacion == "Maximizar") {
             console.log("Vamos a maximizar");
             // Paso 2: Buscar el valor más negativo en F1 (fila de Z)
@@ -294,17 +301,18 @@ function maximizarSimplex(tablaSimplex, operacion) {
             let tablaSimplexNormalizada = normalizarFilaPivote(tablaSimplex, filaPivote, colPivote);
             console.log(tablaSimplexNormalizada);
             //Paso 4: Eliminar la fila pivote de la tabla
-            let texto = `Columna pivote: C${colPivote}, fila pivote F${filaPivote} Se debería dividir la fila entre el elemento ${elementoPivote}`;
+            let texto = `<h3>Columna pivote: C${colPivote}, fila pivote F${filaPivote-1} <br>Se debería dividir la fila entre el elemento ${elementoPivote}</h3>`;
             mostrarTabla(tablaSimplexNormalizada, texto, filaPivote, colPivote, elementoPivote);
 
-            texto = `Iteración ${numIteraciones}.`;
+            texto = `<h3>Iteración ${numIteraciones}.<br>`;
 
             for (let i = 1; i < tablaSimplex.length; i++) {
                 if (i != filaPivote) {
                     let factor = tablaSimplexNormalizada[i][colPivote];  // Factor a multiplicar por la fila pivote
-                    texto += `,  F${i}=> -(${parseFloat(factor).toFixed(2)})*F${filaPivote} + F${i}`
+                    texto += `<br>F${i-1}=> -(${parseFloat(factor).toFixed(2)})*F${filaPivote-1} + F${i-1}`
                 }
             }
+            texto += '</h3';
             //convertir en ceros los elementos de la columna pivote
             let tablaSimplexNueva = convertirCerosColumnaPivote(tablaSimplexNormalizada, filaPivote, colPivote);
             console.log(tablaSimplexNueva);
@@ -445,47 +453,85 @@ function mostrarTabla(tablaSimplex, texto, filaPivote, colPivote, elementoPivote
     const tablaHTML = document.getElementById('resultadoTabla'); // Asegúrate de tener un contenedor para la tabla
     // tablaHTML.innerHTML = ''; // Limpiar contenido previo
 
-    const divTexto = document.createElement('h3');
-    divTexto.textContent = texto;
+    const divTexto = document.createElement('div');
+    divTexto.innerHTML = texto;
     tablaHTML.appendChild(divTexto);
 
 
     const tabla = document.createElement('table');
     for (let i = 0; i < tablaSimplex.length; i++) {
+        const fila = document.createElement('tr');
         const filaHTML = document.createElement('tr');
+
+        const celda01 = document.createElement('td');
+        if (i == 0) {
+            celda01.textContent = '';
+        } else {
+            celda01.textContent = `F${i - 1}`;
+        }
+        filaHTML.appendChild(celda01);
+
         for (let j = 0; j < tablaSimplex[i].length; j++) {
+            if (i == 0) {
+                if (j == 0) {
+                    const col0 = document.createElement('td');
+                    col0.textContent = ``;
+                    fila.appendChild(col0);
+                }
+                const celda0 = document.createElement('td');
+                celda0.textContent = `C${j}`;
+                fila.appendChild(celda0);
+            }
+
             const celda = document.createElement('td');
             const valor = tablaSimplex[i][j];
 
-            if(i==0 || j==0){
+            if (i == 0 || j == 0) {
                 celda.style.fontWeight = 'bold';
+
             }
 
             // Formato de números
             if (typeof valor === 'number') {
-                celda.textContent = parseFloat(valor).toFixed(2);
+                // celda.textContent = parseFloat(valor).toFixed(2);
+                if (Number.isInteger(parseFloat(valor))) {
+                    celda.textContent = parseFloat(valor);
+                } else {
+                    let signo="";
+                    if (parseFloat(valor)<0) signo="-";
+                    celda.textContent = `${signo}${math.fraction(parseFloat(valor)).n}/${math.fraction(parseFloat(valor)).d}`;
+                }
+
+
             } else {
-                celda.textContent = valor;
+                celda.textContent = `${valor}`;
             }
 
             // Resaltar fila pivote
             if (i === filaPivote) {
-                celda.style.backgroundColor = '#b3e5fc'; // Fondo azul claro para la fila pivote
+                celda.style.backgroundColor = '#efd58e'; // Fondo azul claro para la fila pivote
             }
 
             // Resaltar columna pivote
             if (j === colPivote) {
-                celda.style.backgroundColor = '#ffccbc'; // Fondo naranja claro para la columna pivote
+                celda.style.backgroundColor = '#d69fed'; // Fondo naranja claro para la columna pivote
             }
 
             // Resaltar elemento pivote (intersección de fila y columna pivote)
             if (i === filaPivote && j === colPivote) {
-                celda.style.backgroundColor = '#a5d6a7'; // Fondo verde claro para el elemento pivote
+                celda.style.backgroundColor = '#00db09'; // Fondo verde claro para el elemento pivote
                 celda.style.fontWeight = 'bold'; // Poner el elemento pivote en negrita
             }
 
+
             filaHTML.appendChild(celda);
+
+
         }
+        if (i == 0) {
+            tabla.appendChild(fila);
+        }
+
         tabla.appendChild(filaHTML);
     }
 
