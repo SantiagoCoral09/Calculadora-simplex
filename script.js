@@ -228,7 +228,7 @@ function iniciarSimplex() {
 
     // Limpiar resultados anteriores y agregar la tabla al contenedor de resultados
     const resultadoContainer = document.getElementById('resultado');
-    resultadoContainer.innerHTML = ''; // Limpiar contenido anterior
+    resultadoContainer.innerHTML = '<h2 class="center">Tabla Simplex generada</h2>'; // Limpiar contenido anterior
     resultadoContainer.appendChild(tablaHTML);
 
 
@@ -301,10 +301,10 @@ function maximizarSimplex(tablaSimplex, operacion) {
             let tablaSimplexNormalizada = normalizarFilaPivote(tablaSimplex, filaPivote, colPivote);
             console.log(tablaSimplexNormalizada);
             //Paso 4: Eliminar la fila pivote de la tabla
-            let texto = `<h3>Columna pivote: C${colPivote}, fila pivote F${filaPivote-1} <br>Se debería dividir la fila entre el elemento ${elementoPivote}</h3>`;
+            let texto = `<h2>Iteración ${numIteraciones}.</h2><br><h3>Columna pivote: C${colPivote}, fila pivote F${filaPivote-1} <br>Se debería dividir la fila entre el elemento ${elementoPivote}</h3><h3>Ahora, la variable ${tablaSimplex[filaPivote][0]} pasa a ser variable básica.</h3>`;
             mostrarTabla(tablaSimplexNormalizada, texto, filaPivote, colPivote, elementoPivote);
 
-            texto = `<h3>Iteración ${numIteraciones}.<br>`;
+            texto = `<h3>Se deben convertir las filas no pivotes en ceros, para eso hacemos las siguientes transformaciones:</h3><h4>`;
 
             for (let i = 1; i < tablaSimplex.length; i++) {
                 if (i != filaPivote) {
@@ -312,7 +312,7 @@ function maximizarSimplex(tablaSimplex, operacion) {
                     texto += `<br>F${i-1}=> -(${parseFloat(factor).toFixed(2)})*F${filaPivote-1} + F${i-1}`
                 }
             }
-            texto += '</h3';
+            texto += '</h4';
             //convertir en ceros los elementos de la columna pivote
             let tablaSimplexNueva = convertirCerosColumnaPivote(tablaSimplexNormalizada, filaPivote, colPivote);
             console.log(tablaSimplexNueva);
@@ -321,12 +321,12 @@ function maximizarSimplex(tablaSimplex, operacion) {
 
         } else {
             console.log("Fin");
-            let texto = `<h4>`
+            let texto = `<h2>Resultados Finales</h2><h3>Luego de hacer los cálculos en las iteraciones se obtiene:</h3><h3>`
             for (let i = 1; i < tablaSimplex.length; i++) {
                 texto += `${tablaSimplex[i][0]} = ${(tablaSimplex[i][tablaSimplex[0].length - 1]).toFixed(2)}<br>`
             }
             console.log(texto);
-            document.getElementById("fin").innerHTML = `${texto}</h4>`
+            document.getElementById("fin").innerHTML = `${texto}</h3>`
             break;
         }
     }
