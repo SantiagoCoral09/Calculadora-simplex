@@ -30,7 +30,7 @@
         <section aria-labelledby="titulo-problema">
             <h2 id="titulo-problema">Problema a resolver</h2>
             <p>A continuación se muestra un problema de programación lineal que resolveremos utilizando el método Simplex. Tenemos la función objetivo a maximizar y sus restricciones.</p>
-            <img src="./img/funcion_ejemplo.png" alt="Ejemplo de problema de programación lineal">
+            <div class="center"><img src="./img/funcion_ejemplo.png" alt="Ejemplo de problema de programación lineal"></div>
         </section>
 
         <!-- Sección: Selección de variables y restricciones -->
@@ -38,7 +38,7 @@
             <h2 id="titulo-seleccion">1. Selecciona el número de variables y restricciones</h2>
             <p>En la calculadora, digita el número de variables de decisión y el número de restricciones. En este ejemplo tenemos 3 variables de decisión: <span>X<sub>1</sub>, X<sub>2</sub>, X<sub>3</sub></span> y tenemos 3 restricciones. Por lo tanto ingresamos 3 en los dos campos de entrada.</p>
             <!-- Pantallazo del selector de variables y restricciones -->
-            <img src="./img/captura1.png" alt="Selector de variables y restricciones">
+            <div class="center"><img src="./img/captura1.jpg" alt="Selector de variables y restricciones"></div>
         </section>
 
         <!-- Sección: Introducción de valores -->
@@ -46,14 +46,14 @@
             <h2 id="titulo-introduccion">2. Introduce los valores</h2>
             <p>Se debe seleccionar si se trata de maximizar o minimizar. Introduce los coeficientes de la función objetivo y de las restricciones en los campos indicados. Luego, presiona el botón para iniciar el proceso Simplex.</p>
             <!-- Pantallazo de la introducción de valores -->
-            <img src="./img/captura2.png" alt="Introducción de valores en la calculadora">
+            <div class="center"><img src="./img/captura2.jpg" alt="Introducción de valores en la calculadora"></div>
         </section>
 
         <!-- Sección: Tabla Simplex inicial -->
         <section aria-labelledby="titulo-tabla-simplex">
             <h2 id="titulo-tabla-simplex">3. Tabla Simplex generada</h2>
             <p>La tabla Simplex se genera automáticamente. Los valores de la primera columna representan las variables básicas iniciales, en este caso se crean las variables de holgura S1, S2, S3, y la última columna muestra los términos independientes (R).</p>
-            <img src="./img/tabla_inicial.png" alt="Tabla Simplex generada">
+            <div class="center"><img src="./img/tabla_inicial.jpg" alt="Tabla Simplex generada"></div>
             <p>En la primera fila (<strong>F0</strong>), puedes ver la función objetivo con los coeficientes ingresados.</p>
         </section>
 
@@ -62,22 +62,23 @@
             <h2 id="titulo-iteracion">4. Primera Iteración</h2>
             <p>Para iniciar la primera iteración, identifica la columna pivote como la que tiene el valor más negativo en la fila Z (para maximización) o el más positivo (para minimización). Luego, selecciona la fila pivote dividiendo los términos independientes por los coeficientes de la columna pivote, eligiendo el menor cociente positivo.</p>
             <!-- Pantallazo de la elección del pivote -->
-            <img src="./img/fila_columna_pivote.png" alt="Elección de columna y fila pivote">
+            <div class="center"><img src="./img/iteracion1.jpg" alt="Elección de columna y fila pivote"></div>
             <p>El pivote debe ser convertido a 1, y luego el resto de la columna debe ser transformado a ceros.</p>
+            <div class="center"><img src="./img/iteracion11.jpg" alt="Elección de columna y fila pivote"></div>
+
         </section>
 
         <!-- Sección: Iteraciones sucesivas -->
         <section aria-labelledby="titulo-iteraciones">
             <h2 id="titulo-iteraciones">5. Iteraciones sucesivas</h2>
             <p>Repite el proceso de selección de columna y fila pivote hasta que no haya valores negativos en la fila Z. Cada vez que una columna se convierte en la variable básica, las otras entradas en esa columna deben ser convertidas a ceros.</p>
-            <img src="./img/iteraciones.png" alt="Proceso iterativo Simplex">
         </section>
 
         <!-- Sección: Resultado final -->
         <section aria-labelledby="titulo-resultado">
             <h2 id="titulo-resultado">6. Resultado</h2>
             <p>Cuando la fila Z ya no tiene valores negativos, la solución óptima ha sido alcanzada. El valor de la función objetivo y las variables básicas están listos para ser interpretados.</p>
-            <img src="./img/resultado.png" alt="Resultado final del método Simplex">
+            <div class="center"><img src="./img/resultados.jpg" alt="Resultado final del método Simplex"></div>
         </section>
     </div>
 

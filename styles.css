@@ -161,6 +161,10 @@ td {
   color: #e0fcfe;
 }
 
+img{
+  max-width: 350px;
+}
+
 /* Media query para pantallas más grandes (tablets y desktop) */
 @media (min-width: 768px) {
   .nav-list {
