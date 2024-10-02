@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora del Método Simplex</title>
     <link rel="stylesheet" href="styles.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5747807099593748"
-     crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -17,20 +15,30 @@
         <h1 id="titulo-principal">Calculadora del Método Simplex</h1>
         <p>Esta herramienta te ayudará a resolver problemas de optimización lineal usando el método Simplex, ideal para
             maximizar funciones en programación lineal.</p>
-        <p aria-live="polite">
-            Instrucciones: Selecciona el número de variables y restricciones, ingresa los coeficientes, y deja que el
-            método Simplex resuelva el problema paso a paso.
-        </p>
+
     </header>
+
+    <!-- Barra de navegación -->
+    <nav role="navigation" aria-label="Menú principal">
+        <ul class="nav-list">
+            <li><a class="active" href="index.html">Inicio</a></li>
+            <li><a href="ejemplo.html">Ejemplo de Uso</a></li>
+            <li><a href="calculadora.html">Calculadora Simplex</a></li>
+        </ul>
+    </nav>
 
     <div class="container">
 
         <!-- Sección: Introducción -->
         <section id="introduccion" aria-labelledby="introduccion-titulo">
             <h2 id="introduccion-titulo">¿Qué es el Método Simplex?</h2>
-            <p>El método Simplex es una técnica matemática utilizada para resolver problemas de <strong>programación
-                    lineal</strong>, es decir, problemas que buscan maximizar o minimizar una función lineal sujeta a
-                una serie de restricciones lineales.</p>
+            <p>El método Simplex es una técnica matemática utilizada para optimizar y resolver problemas de
+                <strong>programación
+                    lineal</strong>, es decir, problemas que buscan maximizar o minimizar una función objetivo lineal
+                sujeta a
+                una serie de restricciones lineales. Se usa comúnmente en campos como la logística, la economía, la
+                ingeniería y la administración de operaciones.
+            </p>
         </section>
 
         <!-- Sección: Para qué sirve -->
@@ -45,44 +53,134 @@
                 <li>Asignación óptima de recursos.</li>
             </ul>
         </section>
+        <!-- Sección: Caracteristicas -->
+        <section id="para-que-sirve" aria-labelledby="para-que-sirve-titulo">
+            <h2 id="para-que-sirve-titulo">Características clave del método Simplex</h2>
 
-        <!-- Sección: Pasos del Método Simplex -->
-        <section id="pasos-simplex" aria-labelledby="pasos-simplex-titulo">
-            <h2 id="pasos-simplex-titulo">Pasos del Método Simplex</h2>
             <ol>
-                <li>Formular el problema en términos de función objetivo y restricciones.</li>
-                <li>Convertir las restricciones en ecuaciones igualadas a cero (introducción de variables de holgura).
-                </li>
-                <li>Construir la tabla inicial del método Simplex.</li>
-                <li>Identificar la columna pivote (mayor valor positivo en la fila de la función objetivo).</li>
-                <li>Identificar la fila pivote (menor cociente entre la columna de la variable derecha y la columna
-                    pivote).</li>
-                <li>Realizar las operaciones para generar una nueva tabla.</li>
-                <li>Repetir el proceso hasta encontrar la solución óptima.</li>
+                <h3>
+                    <li>Función Objetivo</li>
+                </h3>
+                <p>Es una expresión lineal que representa la meta del problema, como maximizar las ganancias o minimizar
+                    los costos.<br>Por ejemplo: <strong>Maximizar</strong> <span
+                        class="formula">Z=3x<sub>1</sub>+2x<sub>2</sub></span>
+                    ​
+
+                    <br>Donde <span class="formula">x<sub>1</sub>, x<sub>2</sub></span> son las variables de decisión.
+                </p>
+
+                <h3>
+                    <li>Restricciones</li>
+                </h3>
+                <p>Son un conjunto de ecuaciones o desigualdades lineales que limitan los valores que las variables de
+                    decisión pueden tomar.<br>Por ejemplo: <br>
+                    <span class="formula">2x<sub>1</sub> + 3x<sub>2</sub>
+                        ≤ 6</span><br>
+                    <span class="formula">x<sub>1</sub> + x<sub>2</sub>
+                        ≤ 4</span>
+                </p>
+                <h3>
+                    <li>Variables no negativas</li>
+                </h3>
+                <p>En programación lineal, las variables de decisión suelen estar limitadas a valores no negativos
+                    (<span class="formula">x<sub>1</sub> ≥ 0, x<sub>2</sub> ≥ 0</span>).</p>
+
+                <h3>
+                    <li>Tabla Simplex</li>
+                </h3>
+                <p>Es una herramienta visual que representa el problema de programación lineal en forma
+                    tabular, facilitando la resolución del problema. Por ejemplo:</p>
+                <table>
+                    <tr>
+                        <th></th>
+                        <th>Variable <br> Básica</th>
+                        <th>Z</th>
+                        <th>x<sub>1</sub></th>
+                        <th>x<sub>2</sub></th>
+                        <th>S<sub>1</sub></th>
+                        <th>S<sub>2</sub></th>
+                        <th>R</th>
+                    </tr>
+
+                    <tr>
+                        <td>F0</td>
+                        <td>Z</td>
+                        <td>1</td>
+                        <td>-3</td>
+                        <td>-2</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>F1</td>
+                        <td>S<sub>1</sub></td>
+                        <td>0</td>
+                        <td>2</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td>F2</td>
+                        <td>S<sub>2</sub></td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>4</td>
+                    </tr>
+                </table>
             </ol>
         </section>
+
 
         <!-- Sección: Reglas del Método Simplex -->
         <section id="reglas-simplex" aria-labelledby="reglas-simplex-titulo">
             <h2 id="reglas-simplex-titulo">Reglas del Método Simplex</h2>
             <p>A continuación se presentan las reglas que debes seguir al aplicar el método Simplex:</p>
             <ul>
-                <li>La función objetivo debe ser de maximización o debe transformarse para serlo.</li>
+                <li>La función objetivo debe ser de maximización o minimización, pero para esta calculadora las
+                    restricciones deben ser con menor o igual (≤).</li>
                 <li>Las restricciones deben estar en forma de ecuaciones lineales, igualadas a un valor constante.</li>
-                <li>Se deben agregar variables de holgura para convertir desigualdades en igualdades.</li>
-                <li>Durante el proceso, debes identificar la columna y la fila pivote correctamente para cada iteración.
+                <li>Se agregarán variables de holgura teniendo en cuenta el número de restricciones, para convertir
+                    desigualdades en igualdades.</li>
+                <li>Durante el proceso, se identificará la columna y la fila pivote correctamente para cada iteración,
+                    teniendo en cuenta si se trata de maximización o minimización.
                 </li>
             </ul>
+            <p><b>Comprobación de estado.</b> Para comprobar el estado de la solución, se verificará en la fila cero
+                (<i>F0</i>: fila o renglón de la tabla donde se ubica la función objetivo Z). Para <b>Maximización</b>
+                se observa si todos los coeficientes son ceros o valores <b>POSITIVOS</b>. Para <b>Minimización</b> se
+                observa si todos los coeficientes son ceros o valores <b>NEGATIVOS</b>.</p>
+            <p><b>Nueva Variable Básica (NVB).</b> En el proceso del método simplex las variables básicas iniciales son
+                las variables de holgura (<i class="formula">S<sub>i</sub></i>). Para <b>Maximización</b> La nueva
+                variable básica (NVB) es aquella que en la fila cero tenga en valor más alto pero <b>NEGATIVO</b>. Para
+                <b>Minimización</b> La nueva variable básica (NVB) es aquella que en la fila cero tenga en valor más
+                alto pero <b>POSITIVO</b>.</p>
+            <p><b>Variable Básica de Salida (VBS).</b> Se divide cada termino independiente (Columna R en la tabla)
+                sobre los coeficientes de la NVB y se selecciona el menor de ellos (los cocientes negativos o
+                indeterminados no se tienen en cuenta).</p>
+            <p>Para realizar el proceso del método simplex, después de marcar la columna de la NVB y la fila de la VBS
+                se determina el pivote y hacen las respectivas transformaciones (en el fondo es utilizar las operaciones
+                elementales aplicada a las filas de la matriz)</p>
+
         </section>
+
+
 
         <!-- Sección: Algoritmo del Método Simplex -->
         <section id="algoritmo" aria-labelledby="algoritmo-titulo">
             <h2 id="algoritmo-titulo">Algoritmo del Método Simplex</h2>
-            <p>
+            <p>Un Modelo de Programación Lineal (MPL) se transforma a su forma estándar y se construye una matriz con
+                los coeficientes del sistema de ecuaciones formado por los coeficientes de la función objetivo y los
+                coeficientes de las restricciones.
                 La <strong>función objetivo</strong> puede ser de maximización o minimización, y se expresa de la
                 siguiente manera:
             </p>
-            <p><strong>Z</strong> = c<sub>1</sub>x<sub>1</sub> + c<sub>2</sub>x<sub>2</sub> + ... +
+            <p><strong>Maximizar/Minimizar Z</strong> = c<sub>1</sub>x<sub>1</sub> + c<sub>2</sub>x<sub>2</sub> + ... +
                 c<sub>n</sub>x<sub>n</sub></p>
 
             <p><strong>Sujeto a restricciones:</strong></p>
@@ -98,55 +196,23 @@
 
             <p><strong>Pasos para aplicar el método Simplex:</strong></p>
             <ol>
-                <li>Inicializar las variables y crear la tabla inicial.</li>
-                <li>Identificar la columna pivote (con mayor valor positivo en la fila Z).</li>
-                <li>Identificar la fila pivote (menor cociente entre b<sub>i</sub> y el valor en la columna pivote).
+                <li> <b>Forma estándar:</b> El problema se reformula para tener ecuaciones de igualdad, introduciendo
+                    variables de holgura para transformar las desigualdades.</li>
+                <li><b>Tabla Simplex:</b> Se construye una tabla que representa el problema en una forma matricial. Cada
+                    columna representa una variable, y cada fila una ecuación.</li>
+                <li><b>Pivoteo:</b> El método selecciona una variable "entrante" que mejora la solución y una variable
+                    "saliente" que abandona la base, recalculando la tabla iterativamente.
                 </li>
-                <li>Realizar operaciones de pivoteo para actualizar la tabla.</li>
-                <li>Repetir el proceso hasta encontrar la solución óptima.</li>
+                <li><b>Iteraciones:</b> Se repite el proceso de pivotar hasta alcanzar la solución óptima, o se
+                    determina que el problema no tiene solución factible o está sin límite.</li>
             </ol>
         </section>
 
 
-        <!-- Sección: Calculadora -->
-        <section id="calculadora" aria-labelledby="calculadora-titulo">
-            <h2 id="calculadora-titulo">Calculadora del Método Simplex</h2>
-            <p>Introduce los valores de tu función objetivo y las restricciones para obtener la solución óptima paso a
-                paso. Primero ingresa el número de variables y el número de restricciones del problema.</p>
 
-            <label for="numVariables">Número de Variables de Decisión:</label>
-            <input class="input_small" type="number" id="numVariables" value="2" min="1"
-                aria-describedby="numVariablesHelp">
-            <p id="numVariablesHelp">Selecciona cuántas variables de decisión tienes en tu problema.</p>
-
-            <label for="numRestricciones">Número de Restricciones:</label>
-            <input class="input_small" type="number" id="numRestricciones" value="2" min="1"
-                aria-describedby="numRestriccionesHelp">
-            <p id="numRestriccionesHelp">Selecciona cuántas restricciones tiene tu problema.</p>
-
-            <button id="pedirDatos" class="button" onclick="pedirDatos();">Llenar datos</button>
-            <hr>
-
-            <div id="DatosContainer"></div>
-            <div id="CoeficientesContainer"></div>
-
-            <br>
-
-            <div id="resultado">
-                <!-- Aquí se mostrarán las tablas del método Simplex paso a paso -->
-            </div>
-            <div id="resultadoTabla" aria-live="polite">
-                <!-- Aquí se mostrarán las tablas del método Simplex paso a paso -->
-            </div>
-            <div id="fin"></div>
-            <div id="f"></div>
-        </section>
-
+        
     </div>
 
-    <script>
-
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/13.1.1/math.js"></script>
 
     <script src="script.js"></script>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora del Método Simplex</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Encabezado con accesibilidad mejorada -->
+    <header class="center" role="banner" aria-labelledby="titulo-principal">
+        <h1 id="titulo-principal">Calculadora del Método Simplex</h1>
+        <p>Esta herramienta te ayudará a resolver problemas de optimización lineal usando el método Simplex, ideal para
+            maximizar funciones en programación lineal.</p>
+
+    </header>
+
+    <!-- Barra de navegación -->
+    <nav role="navigation" aria-label="Menú principal">
+        <ul class="nav-list">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="ejemplo.html">Ejemplo de Uso</a></li>
+            <li><a class="active" href="calculadora.html">Calculadora Simplex</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Sección: Calculadora -->
+        <section id="calculadora" aria-labelledby="calculadora-titulo">
+            <h2 id="calculadora-titulo">Calculadora del Método Simplex</h2>
+
+            <p aria-live="polite">
+                Instrucciones: Selecciona el número de variables y restricciones, ingresa los coeficientes, y deja que
+                el
+                método Simplex resuelva el problema paso a paso.
+            </p>
+            <hr>
+            <h2 id="titulo-seleccion">1. Selecciona el número de variables y restricciones</h2>
+
+            <label for="numVariables">Número de Variables de Decisión:</label>
+            <input class="input_small" type="number" id="numVariables" value="2" min="1"
+                aria-describedby="numVariablesHelp">
+
+            <label for="numRestricciones">Número de Restricciones:</label>
+            <input class="input_small" type="number" id="numRestricciones" value="2" min="1"
+                aria-describedby="numRestriccionesHelp">
+
+            <button id="pedirDatos" class="button" onclick="pedirDatos();">Llenar datos</button>
+            <hr>
+
+            <div id="DatosContainer"></div>
+            <div id="CoeficientesContainer"></div>
+
+            <br>
+
+            <div id="resultado">
+                <!-- Aquí se mostrarán las tablas del método Simplex paso a paso -->
+            </div>
+            <div id="resultadoTabla" aria-live="polite">
+                <!-- Aquí se mostrarán las tablas del método Simplex paso a paso -->
+            </div>
+            <div id="fin"></div>
+            <div id="f"></div>
+        </section>
+
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/13.1.1/math.js"></script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

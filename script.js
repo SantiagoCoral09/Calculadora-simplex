@@ -12,7 +12,7 @@ function pedirDatos() {
 
     // Limpiar el contenedor de datos
     const datosContainer = document.getElementById('DatosContainer');
-    datosContainer.innerHTML = ''; // Limpiar contenido anterior
+    datosContainer.innerHTML = `<h2 id="titulo-introduccion">2. Introduce los valores</h2><p>Elige si es Maximizar o Minimizar, luego introduce los valores de tu función objetivo y las restricciones para obtener la solución óptima paso a paso. </p>`; // Limpiar contenido anterior
 
     // Operador de desigualdad
     const operadorSelect = document.createElement('select');
@@ -107,7 +107,7 @@ function pedirDatos() {
             texto += ` >= 0`;
         }
     }
-    noNegatividadDiv.innerHTML = `<p>${texto}</p>`;
+    noNegatividadDiv.innerHTML = `<p class="text_small">${texto}</p>`;
 
     datosContainer.appendChild(noNegatividadDiv);
 
@@ -228,7 +228,7 @@ function iniciarSimplex() {
 
     // Limpiar resultados anteriores y agregar la tabla al contenedor de resultados
     const resultadoContainer = document.getElementById('resultado');
-    resultadoContainer.innerHTML = '<h2 class="center">Tabla Simplex generada</h2>'; // Limpiar contenido anterior
+    resultadoContainer.innerHTML = '<h2 class="center">Tabla Simplex generada</h2><p>Con los datos ingresados se genera la siguiente tabla:</p>'; // Limpiar contenido anterior
     resultadoContainer.appendChild(tablaHTML);
 
 
@@ -267,9 +267,12 @@ function maximizarSimplex(tablaSimplex, operacion) {
 
         console.log("Variables Básicas:", variablesBasicas);
         let colPivote = 0;
+        let textoColFilaPivote="<p>Para hallar la columna pivote (NVB) se elige de la fila cero el valor más ";
+
         if (operacion == "Maximizar") {
             console.log("Vamos a maximizar");
             // Paso 2: Buscar el valor más negativo en F1 (fila de Z)
+            textoColFilaPivote += `negativo `;
             let resultadoMasNegativo = obtenerMasNegativoFilaZ(tablaSimplex, variablesBasicas);
             colPivote = resultadoMasNegativo.indiceColumnaMasNegativo;
             let elementoMenorColPivote = resultadoMasNegativo.valorMasNegativo;
@@ -279,6 +282,7 @@ function maximizarSimplex(tablaSimplex, operacion) {
         } else {
             console.log("Vamos a minimizar");
             // Paso 2: Buscar el valor más positivo en F1 (fila de Z)
+            textoColFilaPivote += `positivo `;
             let resultadoMasPositivo = obtenerMasPositivoFilaZ(tablaSimplex, variablesBasicas);
             colPivote = resultadoMasPositivo.indiceColumnaMasPositivo;
             let elementoMenorColPivote = resultadoMasPositivo.valorMasPositivo;
@@ -286,8 +290,6 @@ function maximizarSimplex(tablaSimplex, operacion) {
             console.log(`colPivote =${colPivote}, elementoMenorColPivote y ${elementoMenorColPivote}`);
 
         }
-
-
 
         if (colPivote > 0) {
             //Paso 3. Elegir renglon pivote.
@@ -298,18 +300,37 @@ function maximizarSimplex(tablaSimplex, operacion) {
             let elementoPivote = tablaSimplex[filaPivote][colPivote];
             console.log(`Elemento pivote: ${elementoPivote}`);
 
+            textoColFilaPivote+=`<b>(${tablaSimplex[1][colPivote]})</b>. Para el elemento pivote se dividen cada termino independiente (Columna R en la tabla) sobre los coeficientes de la NVB y se selecciona el menor de ellos (los cocientes negativos o indeterminados no se tienen en cuenta).<br>`;
+            for (let i = 2; i < tablaSimplex.length; i++) {
+                if(tablaSimplex[i][colPivote]<=0){
+                    textoColFilaPivote += `Fila ${i-1}: ${(tablaSimplex[i][tablaSimplex[0].length-1]).toFixed(2)} / ${(tablaSimplex[i][colPivote]).toFixed(2)} = no se tiene en cuenta <br>`;
+                }else{
+                    let resultadoCociente=tablaSimplex[i][tablaSimplex[0].length-1] / tablaSimplex[i][colPivote];
+                    textoColFilaPivote += `Fila ${i-1}: ${(tablaSimplex[i][tablaSimplex[0].length-1]).toFixed(2)} / ${(tablaSimplex[i][colPivote]).toFixed(2)} = ${resultadoCociente.toFixed(2)}<br>`
+                }
+                
+            }
+
+            textoColFilaPivote += `Por lo tanto, al elegir el menor cociente, tenemos en la fila ${filaPivote-1} el elemento pivote: <b>${elementoPivote}</b></p>`;
+
+            
+            let texto = `<h2>Iteración ${numIteraciones}.</h2>${textoColFilaPivote}<h3>Columna pivote: C${colPivote}. Fila pivote F${filaPivote-1}</h3> `;
+            // Mostrar la tabla con la columna y fila pivotes halladas
+            mostrarTabla(tablaSimplex,texto,filaPivote, colPivote, elementoPivote);
+
             let tablaSimplexNormalizada = normalizarFilaPivote(tablaSimplex, filaPivote, colPivote);
             console.log(tablaSimplexNormalizada);
-            //Paso 4: Eliminar la fila pivote de la tabla
-            let texto = `<h2>Iteración ${numIteraciones}.</h2><br><h3>Columna pivote: C${colPivote}, fila pivote F${filaPivote-1} <br>Se debería dividir la fila entre el elemento ${elementoPivote}</h3><h3>Ahora, la variable ${tablaSimplex[filaPivote][0]} pasa a ser variable básica.</h3>`;
-            mostrarTabla(tablaSimplexNormalizada, texto, filaPivote, colPivote, elementoPivote);
+
+            let textoNuevo=`<p>Se debería dividir la fila ${filaPivote-1} entre el elemento ${elementoPivote}<br>Ahora, la variable ${tablaSimplex[filaPivote][0]} pasa a ser variable básica.</p>`;
+
+            mostrarTabla(tablaSimplexNormalizada, textoNuevo, filaPivote, colPivote, elementoPivote);
 
             texto = `<h3>Se deben convertir las filas no pivotes en ceros, para eso hacemos las siguientes transformaciones:</h3><h4>`;
 
             for (let i = 1; i < tablaSimplex.length; i++) {
                 if (i != filaPivote) {
                     let factor = tablaSimplexNormalizada[i][colPivote];  // Factor a multiplicar por la fila pivote
-                    texto += `<br>F${i-1}=> -(${parseFloat(factor).toFixed(2)})*F${filaPivote-1} + F${i-1}`
+                    texto += `F${i-1}=> -(${parseFloat(factor).toFixed(2)})*F${filaPivote-1} + F${i-1}<br>`
                 }
             }
             texto += '</h4';
@@ -321,12 +342,12 @@ function maximizarSimplex(tablaSimplex, operacion) {
 
         } else {
             console.log("Fin");
-            let texto = `<h2>Resultados Finales</h2><h3>Luego de hacer los cálculos en las iteraciones se obtiene:</h3><h3>`
+            let texto = `<div class="resultado_final"><h2>Resultados Finales</h2><p>Luego de hacer los cálculos en las iteraciones se obtiene:<p><h3>`
             for (let i = 1; i < tablaSimplex.length; i++) {
                 texto += `${tablaSimplex[i][0]} = ${(tablaSimplex[i][tablaSimplex[0].length - 1]).toFixed(2)}<br>`
             }
             console.log(texto);
-            document.getElementById("fin").innerHTML = `${texto}</h3>`
+            document.getElementById("fin").innerHTML = `${texto}</h3></div>`
             break;
         }
     }
